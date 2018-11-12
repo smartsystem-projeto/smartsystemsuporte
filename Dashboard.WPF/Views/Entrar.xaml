@@ -1,0 +1,71 @@
+﻿<Window x:Class="Dashboard.WPF.Views.Entrar"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Dashboard.WPF.Views"
+        mc:Ignorable="d"
+        Title="Entrar" Height="310" Width="400"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanMinimize">
+
+    <Window.Resources>
+        <Style x:Key="col" TargetType="Border">
+            <Setter Property="Margin" Value="15" />
+            <Setter Property="Padding" Value="15" />
+        </Style>
+        <Style x:Key="formLabel" TargetType="Label">
+            <Setter Property="Margin" Value="-5 0 0 0" />
+            <Setter Property="Foreground" Value="#333" />
+            <Setter Property="FontSize" Value="15" />
+        </Style>
+        <Style x:Key="formTextBox" TargetType="TextBox">
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Margin" Value="0 0 0 10" />
+            <Setter Property="Padding" Value="10 0 10 0" />
+            <Setter Property="Foreground" Value="#333333" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+        <Style x:Key="formPasswordBox" TargetType="PasswordBox">
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Margin" Value="0 0 0 10" />
+            <Setter Property="Padding" Value="10 0 10 0" />
+            <Setter Property="Foreground" Value="#333333" />
+            <Setter Property="FontSize" Value="15" />
+        </Style>
+        <Style x:Key="btnPrimary" TargetType="Button">
+            <Setter Property="Width" Value="auto" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Padding" Value="30 0 30 0" />
+            <Setter Property="Background" Value="#263a7f" />
+            <Setter Property="Foreground" Value="#ffffff" />
+            <Setter Property="FontSize" Value="15" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#333333" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="#f1f2f3">
+        <Border Grid.Row="0" Grid.Column="0"
+                Style="{StaticResource col}" Background="#fff">
+
+            <StackPanel>
+                <Label Style="{StaticResource formLabel}" Content="HELP DESK Smart System" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" />
+
+                <Label Style="{StaticResource formLabel}" Content="Login" />
+                <TextBox x:Name="txbLogin" Style="{StaticResource formTextBox}" />
+
+                <Label Style="{StaticResource formLabel}" Content="Senha" />
+                <PasswordBox x:Name="pbSenha" Style="{StaticResource formPasswordBox}" />
+
+                <Button x:Name="btnEntrar" Style="{StaticResource btnPrimary}" Content="Entrar" HorizontalAlignment="Right" Click="btnEntrar_Click" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

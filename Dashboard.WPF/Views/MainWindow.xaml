@@ -1,0 +1,908 @@
+﻿<Window x:Class="Dashboard.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Dashboard.WPF"
+        mc:Ignorable="d"
+        Title="Dashboard" Height="768" Width="1024"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanMinimize">
+
+    <Window.Resources>
+        <Style x:Key="col" TargetType="Border">
+            <Setter Property="Margin" Value="15" />
+            <Setter Property="Padding" Value="15" />
+        </Style>
+        <Style x:Key="col-margin-bottom" TargetType="Border">
+            <Setter Property="Margin" Value="0 0 0 10" />
+            <Setter Property="Padding" Value="15" />
+        </Style>
+        <Style x:Key="col-no-padding" TargetType="Border">
+            <Setter Property="Margin" Value="15" />
+        </Style>
+        <Style x:Key="nav" TargetType="StackPanel">
+            <Setter Property="Margin" Value="0 15" />
+        </Style>
+        <Style x:Key="navItem" TargetType="Button">
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Padding" Value="10 0" />
+            <Setter Property="Background" Value="#333" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Foreground" Value="#fff" />
+            <Setter Property="FontSize" Value="15" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background" Value="#5a5a5a" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="textBlock" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#333" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+        <Style x:Key="formLabel" TargetType="Label">
+            <Setter Property="Margin" Value="-5 0 0 0" />
+            <Setter Property="Foreground" Value="#333" />
+            <Setter Property="FontSize" Value="15" />
+        </Style>
+        <Style x:Key="formTextBox" TargetType="TextBox">
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Margin" Value="0 0 0 10" />
+            <Setter Property="Padding" Value="10 0 10 0" />
+            <Setter Property="Foreground" Value="#333333" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+        <Style x:Key="formComboBox" TargetType="ComboBox">
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Margin" Value="0 0 0 10" />
+            <Setter Property="Padding" Value="10 0 10 0" />
+            <Setter Property="Foreground" Value="#333333" />
+            <Setter Property="FontSize" Value="15" />
+        </Style>
+        <Style x:Key="btnPrimary" TargetType="Button">
+            <Setter Property="Width" Value="auto" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Padding" Value="30 0 30 0" />
+            <Setter Property="Background" Value="#263a7f" />
+            <Setter Property="Foreground" Value="#ffffff" />
+            <Setter Property="FontSize" Value="15" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#333333" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="btnDanger" TargetType="Button">
+            <Setter Property="Width" Value="auto" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Padding" Value="30 0 30 0" />
+            <Setter Property="Background" Value="#dc3545" />
+            <Setter Property="Foreground" Value="#ffffff" />
+            <Setter Property="FontSize" Value="15" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#333333" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="dataGrid" TargetType="DataGrid">
+            <Setter Property="Background" Value="#ffffff" />
+            <Setter Property="AlternatingRowBackground" Value="#f1f2f3" />
+        </Style>
+    </Window.Resources>
+
+    
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="10*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0"
+          Grid.Column="0"
+          Background="#333">
+
+            <StackPanel Style="{StaticResource nav}">
+                <Button x:Name="btnChamados" Style="{StaticResource navItem}" Content="Chamados" Click="btnChamados_Click" />
+                <Button x:Name="btnProdutos" Style="{StaticResource navItem}" Content="Produtos" Click="btnProdutos_Click" />
+                <Button x:Name="btnTiposchamado" Style="{StaticResource navItem}" Content="Tipos de chamado" Click="btnTiposchamado_Click" />
+                <Button x:Name="btnAssuntosChamado" Style="{StaticResource navItem}" Content="Assuntos de chamado" Click="btnAssuntosChamado_Click" />
+                <Button x:Name="btnClientes" Style="{StaticResource navItem}" Content="Clientes" Click="btnClientes_Click" />
+                <Button x:Name="btnFuncionarios" Style="{StaticResource navItem}" Content="Funcionarios" Click="btnFuncionarios_Click" />
+                <Button x:Name="btnUsuarios" Style="{StaticResource navItem}" Content="Usuários" Click="btnUsuarios_Click" />
+            </StackPanel>
+        </Grid>
+
+        
+        <!--Produtos-->
+        <Grid x:Name="produtos" Grid.Row="0" Grid.Column="1"
+            Background="#f1f2f3" Visibility="Collapsed">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Grid.Column="0"
+                Style="{StaticResource col}" Background="#fff">
+                
+                <StackPanel>
+
+                    <Grid Margin="0 0 0 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Orientation="Horizontal" Grid.Column="0">
+                            <Label Style="{StaticResource formLabel}" Content="Produto" FontSize="18" FontWeight="Bold" />
+                            <TextBox x:Name="txbIdProduto" Style="{StaticResource formTextBox}" IsReadOnly="True" Margin="0" Width="100" Background="#ccc" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button x:Name="btnAdicionarProduto" Style="{StaticResource btnPrimary}" Content="Novo" Click="btnAdicionarProduto_Click" />
+                        </StackPanel>
+                    </Grid>
+
+                    <Label Style="{StaticResource formLabel}" Content="Nome" />
+                    <TextBox x:Name="txbNomeProduto" Style="{StaticResource formTextBox}" />
+
+                    <Label Style="{StaticResource formLabel}" Content="Descrição" />
+                    <TextBox x:Name="txbDescricaoProduto" Style="{StaticResource formTextBox}" />
+
+                    <Button x:Name="btnSalvarProduto" Style="{StaticResource btnPrimary}" Content="Salvar" HorizontalAlignment="Right" Click="btnSalvarProduto_Click" />
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="1" Grid.Column="0"
+                Style="{StaticResource col}" Background="#fff">
+                
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <DataGrid Grid.Row="0" Grid.Column="0"
+                        x:Name="dtgProdutos" Style="{StaticResource dataGrid}"
+                        AutoGenerateColumns="False" IsReadOnly="True">
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Width="20" Binding="{Binding ProdutoId}" />
+                            <DataGridTextColumn Header="Nome" Binding="{Binding Nome}" />
+                            <DataGridTextColumn Header="Descrição" Binding="{Binding Descricao}" />
+                            <DataGridTextColumn Header="Cadastro" Binding="{Binding DataCadastro}" />
+                            <DataGridTextColumn Header="Última atualização" Binding="{Binding DataAtualizacao}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Grid.Row="1" Grid.Column="0" Margin="0 10 0 0" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button x:Name="btnEditarProduto" Style="{StaticResource btnPrimary}" Content="Editar" Click="btnEditarProduto_Click" />
+                        <Button x:Name="btnRemoverProduto" Style="{StaticResource btnDanger}" Content="Remover" Margin="10 0 0 0" Click="btnRemoverProduto_Click" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        
+        <!--Tipos de chamado-->
+        <Grid x:Name="tiposChamado" Grid.Row="0" Grid.Column="1"
+            Background="#f1f2f3" Visibility="Collapsed">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Grid.Column="0"
+                Style="{StaticResource col}" Background="#fff">
+
+                <StackPanel>
+
+                    <Grid Margin="0 0 0 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Orientation="Horizontal" Grid.Column="0">
+                            <Label Style="{StaticResource formLabel}" Content="Tipo de chamado" FontSize="18" FontWeight="Bold" />
+                            <TextBox x:Name="txbIdTipoChamado" Style="{StaticResource formTextBox}" IsReadOnly="True" Margin="0" Width="100" Background="#ccc" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button x:Name="btnAdicionarTipoChamado" Style="{StaticResource btnPrimary}" Content="Novo" Click="btnAdicionarTipoChamado_Click" />
+                        </StackPanel>
+                    </Grid>
+
+                    <Label Style="{StaticResource formLabel}" Content="Descrição" />
+                    <TextBox x:Name="txbDescricaoTipoChamado" Style="{StaticResource formTextBox}" />
+                    
+                    <Label Style="{StaticResource formLabel}" Content="Prioridade" />
+                    <TextBox x:Name="txbPrioridadeTipoChamado" Style="{StaticResource formTextBox}" PreviewTextInput="TextoNumerico_PreviewTextInput" />
+
+                    <Button Style="{StaticResource btnPrimary}" Content="Salvar" HorizontalAlignment="Right" Click="btnSalvarTipoChamado_Click" />
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="1" Grid.Column="0"
+                Style="{StaticResource col}" Background="#fff">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <DataGrid Grid.Row="0" Grid.Column="0"
+                        x:Name="dtgTiposChamado" Style="{StaticResource dataGrid}"
+                        AutoGenerateColumns="False" IsReadOnly="True">
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Width="20" Binding="{Binding TipoChamadoId}" />
+                            <DataGridTextColumn Header="Descrição" Binding="{Binding Descricao}" />
+                            <DataGridTextColumn Header="Prioridade" Binding="{Binding Prioridade}" />
+                            <DataGridTextColumn Header="Cadastro" Binding="{Binding DataCadastro}" />
+                            <DataGridTextColumn Header="Última atualização" Binding="{Binding DataAtualizacao}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Grid.Row="1" Grid.Column="0" Margin="0 10 0 0" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button x:Name="btnEditarTipoChamado" Style="{StaticResource btnPrimary}" Content="Editar" Click="btnEditarTipoChamado_Click" />
+                        <Button x:Name="btnRemoverTipoChamado" Style="{StaticResource btnDanger}" Content="Remover" Margin="10 0 0 0" Click="btnRemoverTipoChamado_Click" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        
+        <!--Assuntos de chamado-->
+        <Grid x:Name="assuntosChamado" Grid.Row="0" Grid.Column="1"
+            Background="#f1f2f3" Visibility="Collapsed">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Grid.Column="0"
+                Style="{StaticResource col}" Background="#fff">
+
+                <StackPanel>
+
+                    <Grid Margin="0 0 0 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Orientation="Horizontal" Grid.Column="0">
+                            <Label Style="{StaticResource formLabel}" Content="Assunto de chamado" FontSize="18" FontWeight="Bold" />
+                            <TextBox x:Name="txbIdAssuntoChamado" Style="{StaticResource formTextBox}" IsReadOnly="True" Margin="0" Width="100" Background="#ccc" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button x:Name="btnAdicionarAssuntoChamado" Style="{StaticResource btnPrimary}" Content="Novo" Click="btnAdicionarAssuntoChamado_Click" />
+                        </StackPanel>
+                    </Grid>
+
+                    <Label Style="{StaticResource formLabel}" Content="Descrição" />
+                    <TextBox x:Name="txbDescricaoAssuntoChamado" Style="{StaticResource formTextBox}" />
+
+                    <Label Style="{StaticResource formLabel}" Content="Tipo de chamado" />
+                    <ComboBox x:Name="cbTipoChamadoIdAssuntoChamado" Style="{StaticResource formComboBox}" DisplayMemberPath="Descricao" SelectedValuePath="TipoChamadoId" />
+
+                    <Button x:Name="btnSalvarAssuntoChamado" Style="{StaticResource btnPrimary}" Content="Salvar" HorizontalAlignment="Right" Click="btnSalvarAssuntoChamado_Click" />
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="1" Grid.Column="0"
+                Style="{StaticResource col}" Background="#fff">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <DataGrid Grid.Row="0" Grid.Column="0"
+                        x:Name="dtgAssuntosChamado" Style="{StaticResource dataGrid}"
+                        AutoGenerateColumns="False" IsReadOnly="True">
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Width="20" Binding="{Binding AssuntoChamadoId}" />
+                            <DataGridTextColumn Header="Descrição" Binding="{Binding Descricao}" />
+                            <DataGridTextColumn Header="Tipo de chamado" Binding="{Binding Path=TipoChamado.Descricao}" />
+                            <DataGridTextColumn Header="Cadastro" Binding="{Binding DataCadastro}" />
+                            <DataGridTextColumn Header="Última atualização" Binding="{Binding DataAtualizacao}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Grid.Row="1" Grid.Column="0" Margin="0 10 0 0" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button x:Name="btnEditarAssuntoChamado" Style="{StaticResource btnPrimary}" Content="Editar" Click="btnEditarAssuntoChamado_Click" />
+                        <Button x:Name="btnRemoverAssuntoChamado" Style="{StaticResource btnDanger}" Content="Remover" Margin="10 0 0 0" Click="btnRemoverAssuntoChamado_Click" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+
+        <!--Clientes-->
+        <Grid x:Name="clientes" Grid.Row="0" Grid.Column="1"
+            Background="#f1f2f3" Visibility="Collapsed">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Grid.Column="0"
+                Style="{StaticResource col}" Background="#fff">
+
+                <StackPanel>
+
+                    <Grid Margin="0 0 0 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Orientation="Horizontal" Grid.Column="0">
+                            <Label Style="{StaticResource formLabel}" Content="Cliente" FontSize="18" FontWeight="Bold" />
+                            <TextBox x:Name="txbIdCliente" Style="{StaticResource formTextBox}" IsReadOnly="True" Margin="0" Width="100" Background="#ccc" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button x:Name="btnAdicionarCliente" Style="{StaticResource btnPrimary}" Content="Novo" Click="btnAdicionarCliente_Click" />
+                        </StackPanel>
+                    </Grid>
+                    
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Style="{StaticResource formLabel}" Content="Razão social" />
+                        <TextBox x:Name="txbRazaoSocialCliente" Style="{StaticResource formTextBox}" Width="629" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Style="{StaticResource formLabel}" Content="Nome fantasia" />
+                        <TextBox x:Name="txbNomeFantasiaCliente" Style="{StaticResource formTextBox}" Width="614" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Style="{StaticResource formLabel}" Content="CNPJ" />
+                        <TextBox x:Name="txbCNPJCliente" Style="{StaticResource formTextBox}" Width="319" MaxLength="14" PreviewTextInput="TextoNumerico_PreviewTextInput" />
+
+                        <Label Style="{StaticResource formLabel}" Content="CPF" Margin="5 0 0 0" />
+                        <TextBox x:Name="txbCPFCliente" Style="{StaticResource formTextBox}" Width="318" MaxLength="11" PreviewTextInput="TextoNumerico_PreviewTextInput" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Style="{StaticResource formLabel}" Content="E-mail" />
+                        <TextBox x:Name="txbEmailCliente" Style="{StaticResource formTextBox}" Width="408" />
+
+                        <Label Style="{StaticResource formLabel}" Content="Tempo de resposta" Margin="5 0 0 0" />
+                        <TextBox x:Name="txbTempoRespostaCliente" Style="{StaticResource formTextBox}" Width="120" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Style="{StaticResource formLabel}" Content="Telefone 1" />
+                        <TextBox x:Name="txbTelefoneId1Cliente" Visibility="Collapsed" />
+                        <TextBox x:Name="txbTelefone1DDDCliente" Style="{StaticResource formTextBox}" Width="50" MaxLength="2" PreviewTextInput="TextoNumerico_PreviewTextInput" />
+                        <TextBox x:Name="txbTelefone1NumeroCliente" Style="{StaticResource formTextBox}" Width="230" MaxLength="9" PreviewTextInput="TextoNumerico_PreviewTextInput" />
+
+                        <Label Style="{StaticResource formLabel}" Content="Telefone 2" Margin="5 0 0 0" />
+                        <TextBox x:Name="txbTelefoneId2Cliente" Visibility="Collapsed" />
+                        <TextBox x:Name="txbTelefone2DDDCliente" Style="{StaticResource formTextBox}" Width="50" MaxLength="2" PreviewTextInput="TextoNumerico_PreviewTextInput" />
+                        <TextBox x:Name="txbTelefone2NumeroCliente" Style="{StaticResource formTextBox}" Width="230" MaxLength="9" PreviewTextInput="TextoNumerico_PreviewTextInput" />
+                    </StackPanel>
+                    
+                    <TextBox x:Name="txbEnderecoIdCliente" Visibility="Collapsed" />
+                    <StackPanel Orientation="Horizontal">
+                        <Label Style="{StaticResource formLabel}" Content="Rua" />
+                        <TextBox x:Name="txbRuaCliente" Style="{StaticResource formTextBox}" Width="553" />
+
+                        <Label Style="{StaticResource formLabel}" Content="Nº" Margin="5 0 0 0" />
+                        <TextBox x:Name="txbNumeroCliente" Style="{StaticResource formTextBox}" Width="100" PreviewTextInput="TextoNumerico_PreviewTextInput" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Style="{StaticResource formLabel}" Content="Bairro" />
+                        <TextBox x:Name="txbBairroCliente" Style="{StaticResource formTextBox}" Width="239" />
+
+                        <Label Style="{StaticResource formLabel}" Content="Cidade" Margin="5 0 0 0" />
+                        <TextBox x:Name="txbCidadeCliente" Style="{StaticResource formTextBox}" Width="239" />
+
+                        <Label Style="{StaticResource formLabel}" Content="UF" Margin="5 0 0 0" />
+                        <TextBox x:Name="txbUFCliente" Style="{StaticResource formTextBox}" Width="100" MaxLength="2" />
+                    </StackPanel>
+
+                    <Button x:Name="btnSalvarCliente" Style="{StaticResource btnPrimary}" Content="Salvar" HorizontalAlignment="Right" Click="btnSalvarCliente_Click" />
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="1" Grid.Column="0"
+                Style="{StaticResource col}" Background="#fff">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <DataGrid Grid.Row="0" Grid.Column="0"
+                        x:Name="dtgClientes" Style="{StaticResource dataGrid}"
+                        AutoGenerateColumns="False" IsReadOnly="True">
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Width="20" Binding="{Binding ClienteId}" />
+                            <DataGridTextColumn Header="Razão social" Binding="{Binding RazaoSocial}" />
+                            <DataGridTextColumn Header="Nome fantasia" Binding="{Binding NomeFantasia}" />
+                            <DataGridTextColumn Header="E-mail" Binding="{Binding Email}" />
+                            <DataGridTextColumn Header="Cadastro" Binding="{Binding DataCadastro}" />
+                            <DataGridTextColumn Header="Última atualização" Binding="{Binding DataAtualizacao}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Grid.Row="1" Grid.Column="0" Margin="0 10 0 0" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button x:Name="btnEditarCliente" Style="{StaticResource btnPrimary}" Content="Editar" Click="btnEditarCliente_Click" />
+                        <Button x:Name="btnRemoverCliente" Style="{StaticResource btnDanger}" Content="Remover" Margin="10 0 0 0" Click="btnRemoverCliente_Click" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!--Funcionario-->
+        <Grid x:Name="funcionarios" Grid.Row="0" Grid.Column="1"
+            Background="#f1f2f3" Visibility="Collapsed">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Grid.Column="0"
+                Style="{StaticResource col}" Background="#fff">
+
+                <StackPanel>
+
+                    <Grid Margin="0 0 0 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Orientation="Horizontal" Grid.Column="0">
+                            <Label Style="{StaticResource formLabel}" Content="Funcionário" FontSize="18" FontWeight="Bold" />
+                            <TextBox x:Name="txbIdFuncionario" Style="{StaticResource formTextBox}" IsReadOnly="True" Margin="0" Width="100" Background="#ccc" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button x:Name="btnAdicionarFuncionario" Style="{StaticResource btnPrimary}" Content="Novo" Click="btnAdicionarFuncionario_Click" />
+                        </StackPanel>
+                    </Grid>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Style="{StaticResource formLabel}" Content="Nome de tratamento" />
+                        <TextBox x:Name="txbNomeTratamentoFuncionario" Style="{StaticResource formTextBox}" Width="571" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <!--<Label Style="{StaticResource formLabel}" Content="E-mail" />
+                        <TextBox x:Name="txbEmailFuncionario" Style="{StaticResource formTextBox}" Width="408" />-->
+
+                        <Label Style="{StaticResource formLabel}" Content="CPF" Margin="5 0 0 0" />
+                        <TextBox x:Name="txbCPFFuncionario" Style="{StaticResource formTextBox}" Width="221" MaxLength="11" PreviewTextInput="TextoNumerico_PreviewTextInput" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Style="{StaticResource formLabel}" Content="Telefone 1" />
+                        <TextBox x:Name="txbTelefoneId1Funcionario" Visibility="Collapsed" />
+                        <TextBox x:Name="txbTelefone1DDDFuncionario" Style="{StaticResource formTextBox}" Width="50" MaxLength="2" PreviewTextInput="TextoNumerico_PreviewTextInput" />
+                        <TextBox x:Name="txbTelefone1NumeroFuncionario" Style="{StaticResource formTextBox}" Width="230" MaxLength="9" PreviewTextInput="TextoNumerico_PreviewTextInput" />
+
+                        <Label Style="{StaticResource formLabel}" Content="Telefone 2" Margin="5 0 0 0" />
+                        <TextBox x:Name="txbTelefoneId2Funcionario" Visibility="Collapsed" />
+                        <TextBox x:Name="txbTelefone2DDDFuncionario" Style="{StaticResource formTextBox}" Width="50" MaxLength="2" PreviewTextInput="TextoNumerico_PreviewTextInput" />
+                        <TextBox x:Name="txbTelefone2NumeroFuncionario" Style="{StaticResource formTextBox}" Width="230" MaxLength="9" PreviewTextInput="TextoNumerico_PreviewTextInput" />
+                    </StackPanel>
+
+                    <TextBox x:Name="txbEnderecoIdFuncionario" Visibility="Collapsed" />
+                    <StackPanel Orientation="Horizontal">
+                        <Label Style="{StaticResource formLabel}" Content="Rua" />
+                        <TextBox x:Name="txbRuaFuncionario" Style="{StaticResource formTextBox}" Width="553" />
+
+                        <Label Style="{StaticResource formLabel}" Content="Nº" Margin="5 0 0 0" />
+                        <TextBox x:Name="txbNumeroFuncionario" Style="{StaticResource formTextBox}" Width="100" PreviewTextInput="TextoNumerico_PreviewTextInput" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Style="{StaticResource formLabel}" Content="Bairro" />
+                        <TextBox x:Name="txbBairroFuncionario" Style="{StaticResource formTextBox}" Width="239" />
+
+                        <Label Style="{StaticResource formLabel}" Content="Cidade" Margin="5 0 0 0" />
+                        <TextBox x:Name="txbCidadeFuncionario" Style="{StaticResource formTextBox}" Width="239" />
+
+                        <Label Style="{StaticResource formLabel}" Content="UF" Margin="5 0 0 0" />
+                        <TextBox x:Name="txbUFFuncionario" Style="{StaticResource formTextBox}" Width="100"  MaxLength="2" />
+                    </StackPanel>
+
+                    <Button x:Name="btnSalvarFuncionario" Style="{StaticResource btnPrimary}" Content="Salvar" HorizontalAlignment="Right" Click="btnSalvarFuncionario_Click" />
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="1" Grid.Column="0"
+                Style="{StaticResource col}" Background="#fff">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <DataGrid Grid.Row="0" Grid.Column="0"
+                        x:Name="dtgFuncionarios" Style="{StaticResource dataGrid}"
+                        AutoGenerateColumns="False" IsReadOnly="True">
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Width="20" Binding="{Binding FuncionarioId}" />
+                            <DataGridTextColumn Header="Nome de tratamento" Binding="{Binding NomeTratamento}" />
+                            <DataGridTextColumn Header="CPF" Binding="{Binding CPF}" />
+                            <DataGridTextColumn Header="Cadastro" Binding="{Binding DataCadastro}" />
+                            <DataGridTextColumn Header="Última atualização" Binding="{Binding DataAtualizacao}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Grid.Row="1" Grid.Column="0" Margin="0 10 0 0" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button x:Name="btnEditarFuncionario" Style="{StaticResource btnPrimary}" Content="Editar" Click="btnEditarFuncionario_Click" />
+                        <Button x:Name="btnRemoverFuncionario" Style="{StaticResource btnDanger}" Content="Remover" Margin="10 0 0 0" Click="btnRemoverFuncionario_Click" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+        
+        
+        <!--Usuario-->
+        <Grid x:Name="usuarios" Grid.Row="0" Grid.Column="1"
+            Background="#f1f2f3" Visibility="Collapsed">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Grid.Column="0"
+                Style="{StaticResource col}" Background="#fff">
+
+                <StackPanel>
+                    <Grid Margin="0 0 0 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Orientation="Horizontal" Grid.Column="0">
+                            <Label Style="{StaticResource formLabel}" Content="Usuário" FontSize="18" FontWeight="Bold" />
+                            <TextBox x:Name="txbIdUsuario" Style="{StaticResource formTextBox}" IsReadOnly="True" Margin="0" Width="100" Background="#ccc" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button x:Name="btnAdicionarUsuario" Style="{StaticResource btnPrimary}" Content="Novo" Click="btnAdicionarUsuario_Click" />
+                        </StackPanel>
+                    </Grid>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Style="{StaticResource formLabel}" Content="Tipo de usuário" />
+                        <ComboBox x:Name="cbTipoUsuario" Style="{StaticResource formComboBox}" Width="607" DropDownClosed="cbTipoUsuario_DropDownClosed">
+                            <ComboBoxItem Content="" />
+                            <ComboBoxItem Content="Cliente" />
+                            <ComboBoxItem Content="Funcionário" />
+                        </ComboBox>
+                    </StackPanel>
+                    
+                    <StackPanel x:Name="clientesUsuario" Orientation="Horizontal">
+                        <Label Style="{StaticResource formLabel}" Content="Cliente" />
+                        <ComboBox x:Name="cbClienteIdUsuario" Style="{StaticResource formComboBox}" DisplayMemberPath="RazaoSocial" SelectedValuePath="ClienteId" Width="670" />
+                    </StackPanel>
+
+                    <StackPanel x:Name="funcionariosUsuario" Orientation="Horizontal">
+                        <Label Style="{StaticResource formLabel}" Content="Funcionário" />
+                        <ComboBox x:Name="cbFuncionarioIdUsuario" Style="{StaticResource formComboBox}" DisplayMemberPath="NomeTratamento" SelectedValuePath="FuncionarioId" Width="670" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Style="{StaticResource formLabel}" Content="Nome" />
+                        <TextBox x:Name="txbNomeUsuario" Style="{StaticResource formTextBox}" Width="669" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Style="{StaticResource formLabel}" Content="E-mail" />
+                        <TextBox x:Name="txbEmailUsuario" Style="{StaticResource formTextBox}" Width="668" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Style="{StaticResource formLabel}" Content="Login" />
+                        <TextBox x:Name="txbLoginUsuario" Style="{StaticResource formTextBox}" Width="278" />
+
+                        <Label Style="{StaticResource formLabel}" Content="Nível de acesso" Margin="5 0 0 0" />
+                        <ComboBox x:Name="cbNivelUsuario" Style="{StaticResource formComboBox}" Width="278">
+                            <ComboBoxItem Content="" />
+                            <ComboBoxItem Content="Cliente" />
+                            <ComboBoxItem Content="Técnico" />
+                            <ComboBoxItem Content="Coordenador" />
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Style="{StaticResource formLabel}" Content="Senha" />
+                        <TextBox x:Name="txbSenhaUsuario" Style="{StaticResource formTextBox}" Width="273" />
+
+                        <Label Style="{StaticResource formLabel}" Content="Confirmar senha" Margin="5 0 0 0" />
+                        <TextBox x:Name="txbConfirmarSenhaUsuario" Style="{StaticResource formTextBox}" Width="273" />
+                    </StackPanel>
+
+                    <Button x:Name="btnSalvarUsuario" Style="{StaticResource btnPrimary}" Content="Salvar" HorizontalAlignment="Right" Click="btnSalvarUsuario_Click" />
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="1" Grid.Column="0"
+                Style="{StaticResource col}" Background="#fff">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <DataGrid Grid.Row="0" Grid.Column="0"
+                        x:Name="dtgUsuarios" Style="{StaticResource dataGrid}"
+                        AutoGenerateColumns="False" IsReadOnly="True">
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Width="20" Binding="{Binding UsuarioId}" />
+                            <DataGridTextColumn Header="Login" Binding="{Binding Login}" />
+                            <DataGridTextColumn Header="Nome" Binding="{Binding Nome}" />
+                            <DataGridTextColumn Header="E-mail" Binding="{Binding Email}" />
+                            <DataGridTextColumn Header="Nível de acesso" Binding="{Binding Nivel}" />
+                            <DataGridTextColumn Header="Cadastro" Binding="{Binding DataCadastro}" />
+                            <DataGridTextColumn Header="Última atualização" Binding="{Binding DataAtualizacao}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Grid.Row="1" Grid.Column="0" Margin="0 10 0 0" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button x:Name="btnEditarUsuario" Style="{StaticResource btnPrimary}" Content="Editar" Click="btnEditarUsuario_Click" />
+                        <Button x:Name="btnRemoverUsuario" Style="{StaticResource btnDanger}" Content="Remover" Margin="10 0 0 0" Click="btnRemoverUsuario_Click" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+
+        <!--Chamados-->
+        <Grid x:Name="chamados" Grid.Row="0" Grid.Column="1"
+            Background="#f1f2f3" Visibility="Collapsed">
+
+
+
+            <Border Style="{StaticResource col}" Background="#fff">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Grid.Column="0" Margin="0 0 0 10" Orientation="Horizontal">
+                        <Button x:Name="btnFiltrarSemTecnicoChamados" Style="{StaticResource btnPrimary}" Content="Sem técnico responsável" Click="btnFiltrarSemTecnicoChamados_Click" />
+                    </StackPanel>
+                    
+                    <DataGrid Grid.Row="1" Grid.Column="0"
+                        x:Name="dtgChamados" Style="{StaticResource dataGrid}"
+                        AutoGenerateColumns="False" IsReadOnly="True">
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Nº" Width="20" Binding="{Binding ChamadoId}" />
+                            <DataGridTextColumn Header="Abertura" Binding="{Binding DataAbertura}" />
+                            <DataGridTextColumn Header="Tipo" Binding="{Binding Path=TipoChamado.Descricao}" />
+                            <DataGridTextColumn Header="Assunto" Binding="{Binding Path=AssuntoChamado.Descricao}" />
+                            <DataGridTextColumn Header="Último posicionamento" Binding="{Binding UltimoPosicionamento}" />
+                            <DataGridTextColumn Header="Status" Binding="{Binding Status}" />
+                            <DataGridTextColumn Header="Responsável" Binding="{Binding Responsavel}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    
+                    <StackPanel Grid.Row="2" Grid.Column="0" Margin="0 10 0 0" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button x:Name="btnVerChamado" Style="{StaticResource btnPrimary}" Content="Ver chamado" Click="btnVerChamado_Click" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!--Chamado-->
+        <Grid x:Name="chamado" Grid.Row="0" Grid.Column="1"
+            Background="#f1f2f3" Visibility="Collapsed">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Grid.Column="0"
+                    Style="{StaticResource col}" Background="#fff">
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Margin="0 0 0 15">
+                                <TextBlock Style="{StaticResource textBlock}" 
+                                           Text="Cliente:" FontSize="12" FontWeight="Bold" Margin="0 0 10 0" />
+                                <TextBlock x:Name="txbClienteChamado" Style="{StaticResource textBlock}" 
+                                           FontSize="12" />
+                                <TextBlock x:Name="lblFuncionarioIdChamado" Style="{StaticResource textBlock}" 
+                                           Text="Técnico:" FontSize="12" FontWeight="Bold" Margin="0 0 10 0" />
+                                <ComboBox x:Name="cbFuncionarioIdChamado" Style="{StaticResource formComboBox}" 
+                                          DisplayMemberPath="NomeTratamento" SelectedValuePath="FuncionarioId"
+                                          DropDownClosed="cbFuncionarioIdChamado_DropDownClosed" />
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="0" Grid.Column="1"
+                                HorizontalAlignment="Right"
+                                Margin="0 0 0 10">
+
+                                <ComboBox x:Name="cbStatusChamado" Style="{StaticResource formComboBox}" 
+                                          DropDownClosed="cbStatusChamado_DropDownClosed">
+                                    <ComboBoxItem Content="Recebido" />
+                                    <ComboBoxItem Content="Em andamento" />
+                                    <ComboBoxItem Content="Aguardando posicionamento" />
+                                    <ComboBoxItem Content="Encerrado" />
+                                </ComboBox>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource textBlock}" 
+                                               Text="Número:" FontSize="12" FontWeight="Bold" Margin="0 0 10 0" />
+                                    <TextBlock x:Name="txbIdChamado" Style="{StaticResource textBlock}" FontSize="12" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource textBlock}" Text="Abertura:" FontSize="12" FontWeight="Bold" Margin="0 0 10 0" />
+                                    <TextBlock x:Name="txbAberturaChamado" Style="{StaticResource textBlock}" FontSize="12" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                        <StackPanel Grid.Row="1" Grid.Column="0">
+                            <TextBlock Style="{StaticResource textBlock}" Text="Produto" FontWeight="Bold" />
+                            <TextBlock x:Name="txbProdutoChamado" Style="{StaticResource textBlock}" Text="Número" Margin="0 0 0 10" />
+
+                            <TextBlock Style="{StaticResource textBlock}" Text="Tipo" FontWeight="Bold" />
+                            <TextBlock x:Name="txbTipoChamado" Style="{StaticResource textBlock}" Text="Número" Margin="0 0 0 10" />
+
+                            <TextBlock Style="{StaticResource textBlock}" Text="Assunto" FontWeight="Bold" />
+                            <TextBlock x:Name="txbAssuntoChamado" Style="{StaticResource textBlock}" Text="Número" Margin="0 0 0 10" />
+
+                            <TextBlock Style="{StaticResource textBlock}" Text="Descrição" FontWeight="Bold" />
+                            <TextBlock x:Name="txbDescricaoChamado" Style="{StaticResource textBlock}" Text="Número" Margin="0 0 0 10" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Border x:Name="posicionamentosChamado" Grid.Row="0" Grid.Column="1"
+                    MaxHeight="530"
+                Style="{StaticResource col-no-padding}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Grid.Column="0"
+                              Margin="0 0 0 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource textBlock}" 
+                                   Text="Posicionamentos" FontWeight="Bold" Margin="0 0 10 0" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal"
+                                        HorizontalAlignment="Right">
+                            <Button x:Name="btnAdicionarPosicionamento" Style="{StaticResource btnPrimary}" 
+                                    Content="Adicionar" Height="25" 
+                                    Click="btnAdicionarPosicionamento_Click" />
+                        </StackPanel>
+                    </Grid>
+
+                    <ScrollViewer  Grid.Row="1" Grid.Column="0"
+                            Padding="0 0 10 0"
+                            VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Hidden">
+                        <StackPanel x:Name="listPosicionamentosChamado">
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+
+        </Grid>
+    </Grid>
+</Window>
