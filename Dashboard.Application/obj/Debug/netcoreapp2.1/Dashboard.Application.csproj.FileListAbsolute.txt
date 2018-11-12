@@ -1,0 +1,12 @@
+C:\Users\joaoc\source\repos\Dashboard\Dashboard.Application\bin\Debug\netcoreapp2.1\Dashboard.Application.deps.json
+C:\Users\joaoc\source\repos\Dashboard\Dashboard.Application\bin\Debug\netcoreapp2.1\Dashboard.Application.dll
+C:\Users\joaoc\source\repos\Dashboard\Dashboard.Application\bin\Debug\netcoreapp2.1\Dashboard.Application.pdb
+C:\Users\joaoc\source\repos\Dashboard\Dashboard.Application\bin\Debug\netcoreapp2.1\Dashboard.Domain.dll
+C:\Users\joaoc\source\repos\Dashboard\Dashboard.Application\bin\Debug\netcoreapp2.1\Dashboard.Domain.pdb
+C:\Users\joaoc\source\repos\Dashboard\Dashboard.Application\obj\Debug\netcoreapp2.1\Dashboard.Application.csprojAssemblyReference.cache
+C:\Users\joaoc\source\repos\Dashboard\Dashboard.Application\obj\Debug\netcoreapp2.1\Dashboard.Application.csproj.CoreCompileInputs.cache
+C:\Users\joaoc\source\repos\Dashboard\Dashboard.Application\obj\Debug\netcoreapp2.1\Dashboard.Application.AssemblyInfoInputs.cache
+C:\Users\joaoc\source\repos\Dashboard\Dashboard.Application\obj\Debug\netcoreapp2.1\Dashboard.Application.AssemblyInfo.cs
+C:\Users\joaoc\source\repos\Dashboard\Dashboard.Application\obj\Debug\netcoreapp2.1\Dashboard.Application.csproj.CopyComplete
+C:\Users\joaoc\source\repos\Dashboard\Dashboard.Application\obj\Debug\netcoreapp2.1\Dashboard.Application.dll
+C:\Users\joaoc\source\repos\Dashboard\Dashboard.Application\obj\Debug\netcoreapp2.1\Dashboard.Application.pdb
