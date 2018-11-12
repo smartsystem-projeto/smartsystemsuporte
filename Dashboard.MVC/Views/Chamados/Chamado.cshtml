@@ -1,0 +1,98 @@
+﻿@using Dashboard.MVC.ViewModels.Chamados
+@using Dashboard.MVC.Services
+@model ChamadoViewModel
+
+@{
+    ViewData["Title"] = "Chamado Nº" + Model.ChamadoId;
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <ul class="list-inline">
+                    <li class="list-inline-item"><b>Número:</b> @Model.Chamado.ChamadoId</li>
+                    <li class="list-inline-item"><b>Status:</b> @Model.Chamado.Status</li>
+                    <li class="list-inline-item"><b>Abertura:</b> @Model.Chamado.DataAbertura.ToString("dd/MM/yyyy")</li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Detalhes do chamado</h5>
+
+                <dl class="list-inline">
+                    <dt>Produto</dt>
+                    <dd>@Model.Chamado.Produto.Descricao</dd>
+
+                    <dt>Tipo</dt>
+                    <dd>@Model.Chamado.TipoChamado.Descricao</dd>
+
+                    <dt>Assunto</dt>
+                    <dd>@Model.Chamado.AssuntoChamado.Descricao</dd>
+
+                    <dt>Descrição</dt>
+                    <dd>@Model.Chamado.Descricao</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mt-3 mt-md-0">
+        <ul class="list-inline">
+            <li class="list-inline-item">
+                <h5>Posicionamentos</h5>
+            </li>
+            @if (UsuarioAutal.GetClienteId(Context) != null)
+            {
+            <li class="float-right list-inline-item">
+                <button type="button" class="ml-md-auto btn btn-sm btn-primary" data-toggle="modal" data-target="#adicionarPosicionamento">
+                    <i class="fas fa-plus"></i>
+                    ADICIONAR
+                </button>
+            </li>
+            }
+        </ul>
+
+        @foreach (var posicionamentoChamado in Model.Chamado.PosicionamentosChamado)
+        {
+            <div class="card mt-3 @(posicionamentoChamado.FuncionarioId != null ? "bg-primary text-white" : "")">
+                <div class="card-body">
+                    <blockquote class="blockquote @(posicionamentoChamado.ClienteId != null ? "text-right" : "")">
+                        <p class="mb-0">@posicionamentoChamado.Descricao</p>
+                        <footer class="blockquote-footer @(posicionamentoChamado.FuncionarioId != null ? "text-white" : "")">
+                            @posicionamentoChamado.DataCadastro.ToString("dd/MM/yyyy HH:ss")
+                        </footer>
+                    </blockquote>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div id="adicionarPosicionamento" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="adicionarPosicionamento" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 id="adicionarPosicionamento" class="modal-title">Adicionar posicionamento</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+                <form asp-action="chamado">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="ChamadoId" class="form-control" />
+                    <input type="hidden" asp-for="ClienteId" class="form-control" />
+
+                    <div class="form-group">
+                        <label asp-for="Descricao" class="control-label"></label>
+                        <textarea asp-for="Descricao" class="form-control"></textarea>
+                        <span asp-validation-for="Descricao" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Adicionar" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

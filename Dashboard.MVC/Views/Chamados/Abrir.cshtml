@@ -1,0 +1,45 @@
+﻿@using Dashboard.MVC.ViewModels.Chamados
+@model AbrirViewModel
+
+@{
+    ViewData["Title"] = "Abrir chamado";
+}
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Abrir chamado</h5>
+
+                <form asp-action="abrir">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="ProdutoId" class="control-label"></label>
+                        <select asp-for="ProdutoId" class="form-control" asp-items="Model.Produtos"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="TipoChamadoId" class="control-label"></label>
+                        <select asp-for="TipoChamadoId" class="form-control" asp-items="Model.TiposChamado"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="AssuntoChamadoId" class="control-label"></label>
+                        <select asp-for="AssuntoChamadoId" class="form-control" asp-items="Model.AssuntosChamado"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Descricao" class="control-label"></label>
+                        <textarea asp-for="Descricao" class="form-control"></textarea>
+                        <span asp-validation-for="Descricao" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Abrir" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

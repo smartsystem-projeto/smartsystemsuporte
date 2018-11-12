@@ -1,0 +1,62 @@
+﻿@using Dashboard.MVC.ViewModels.Chamados
+@model IndexViewModel
+
+@{
+    ViewData["Title"] = "Chamados";
+}
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Todos os chamados</h5>
+
+                <table class="table table-responsive table-hover dataTable">
+                    <thead>
+                        <tr>
+                            <th>Nº</th>
+                            <th>Abertura</th>
+                            <th>Tipo</th>
+                            <th>Assunto</th>
+                            <th>Último posicionamento</th>
+                            <th>Status</th>
+                            <th>Responsavel</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Chamados)
+                        {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ChamadoId)
+                            </td>
+                            <td>
+                                @item.DataAbertura.ToString("dd/MM/yyyy")
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TipoChamado.Descricao)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AssuntoChamado.Descricao)
+                            </td>
+                            <td>
+                                @(item.UltimoPosicionamento.HasValue ? item.UltimoPosicionamento.Value.ToString("dd/MM/yyyy") : "N/A")
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Responsavel)
+                            </td>
+                            <td>
+                                <a class="btn btn-sm btn-primary" asp-action="chamado" asp-route-id="@item.ChamadoId"><i class="far fa-edit"></i></a> |
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

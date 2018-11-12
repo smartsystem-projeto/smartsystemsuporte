@@ -1,0 +1,125 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
+for details on configuring this project to bundle and minify static web assets. */
+/*Buttons*/
+.btn {
+    border-radius: initial;
+}
+
+/*Cards*/
+.card {
+    border: none;
+    border-radius: initial;
+}
+
+/*Forms*/
+form .form-control {
+    border-radius: initial;
+}
+
+/*Navbar*/
+.navbar {
+    
+}
+    .navbar .navbar-brand {
+        width: 18%;
+    }
+    .navbar .navbar-brand, .navbar .navbar-toggler {
+        color: #ffffff;
+    }
+    .navbar .navbar-nav .nav-item {
+        padding: 5px;
+    }
+        .navbar .navbar-nav .nav-item:hover,
+        .navbar .navbar-nav .nav-item:focus,
+        .navbar .navbar-nav .nav-item.active {
+            background-color: #5a5a5a;
+        }
+        .navbar .navbar-nav .nav-item .nav-link {
+            color: #ffffff;
+        }
+
+        .navbar .navbar-nav .nav-item .dropdown-menu .dropdown-item {
+            font-size: 0.8em;
+        }
+            .navbar .navbar-nav .nav-item .dropdown-menu .dropdown-item i {
+                margin-right: 10px;
+            }
+
+/*Sidebar*/
+.nav-sidebar {
+    min-height: 100vh;
+    width: 20%;
+}
+    .nav-sidebar .nav-sidebar-header {
+        border-right: 1px solid #fff;
+        padding: 0.6rem 1rem;
+        margin-bottom: 10px;
+        color: #fff;
+    }
+        .nav-sidebar .nav-sidebar-title {
+            font-size: 1.25em;
+            color: #fff;
+            margin: 0;
+        }
+    .nav-sidebar .nav .nav-item {
+        margin-bottom: 10px;
+    }
+    .nav-sidebar .nav .nav-item:hover, .nav-sidebar .nav .nav-item.active {
+        background-color: #5a5a5a;
+    }
+        .nav-sidebar .nav .nav-item .nav-link {
+            color:#ffffff;
+        }
+            .nav-sidebar .nav .nav-item .nav-link i {
+                margin-right: 10px;
+            }
+    .nav-sidebar .nav .nav-item.has-sub:hover {
+        background-color: transparent;
+    }
+        .nav-sidebar .nav .nav-item.has-sub .nav-link[data-toggle="collapse"] {
+            color: #999999;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+        .nav-sidebar .nav .nav-item.has-sub .nav .nav-item {
+            margin: 0;
+            padding-left: 15px;
+        }
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    .navbar-collapse {
+        padding-bottom: 10px;
+    }
+
+    .nav-sidebar {
+        max-height: 100vh;
+        overflow: auto;
+        position:  fixed;
+        top: 0;
+        bottom: 0;
+        z-index: 999;
+        width: 75%;
+    }
+
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
